@@ -1,0 +1,31 @@
+supprimer:
+    pattern:  /supprimer/{id}
+    defaults: { _controller: RestaurantBundle:Cmd:supprimer }
+
+ajouter:
+    pattern:  /ajouter/{id}
+    defaults: { _controller: RestaurantBundle:Cmd:ajouter }
+
+cmd:
+    pattern:  /cmd
+    defaults: { _controller: RestaurantBundle:Cmd:cmd }
+
+reservationpage:
+    pattern:  /reservationpage
+    defaults: { _controller: RestaurantBundle:Cmd:reservationpage }
+
+
+validation:
+    pattern:  /validation
+    defaults: { _controller: RestaurantBundle:Cmd:validation }
+
+livraisonAdresseSuppression:
+    pattern:  /reservationpage/reservationpage/suppression/{id}
+    defaults: { _controller: RestaurantBundle:Cmd:adresseSuppression }
+
+
+
+
+
+
+

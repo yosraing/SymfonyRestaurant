@@ -1,0 +1,43 @@
+
+{% extends "::layout/layout.html.twig" %}
+
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="span12">
+            <h2>Réservation</h2>
+            <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="span4">
+                        {% if utilisateur.reservation|length != 0 %}
+                            <form action="{{ path('validation') }}" method="POST">
+
+                                <h4>réservation de livraison</h4>
+                                {% for reservation in utilisateur.reservation %}
+                                    <label class="radio">
+                                        <input type="radio" name="reservationpage" value="{{ reservation.id }}" {% if loop.index0 == 0 %}checked="checked"{% endif %}>
+                                        {{ reservation.heurereservation|date(' H:i:s') }} - {{ reservation.niveau }} - {{ reservation.tel }}  <a href="{{ path('livraisonAdresseSuppression', { 'id' : reservation.id }) }}"><i class="icon-trash"></i></a>
+                                        <br />{{ reservation.prenom }}- {{ reservation.nom }}
+                                    </label>
+                                {% endfor %}
+
+
+                                <br /><br />
+                                <button class="btn btn-primary">Valider mes Réservation</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                    <div class="span4 offset2">
+                        <h4>Ajouter une nouvelle Réservation</h4>
+                        <form action="{{ path('reservationpage') }}" method="POST">
+                            {{ form_widget(form) }}
+                            <button class="btn btn-primary" type="submit">Ajouter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

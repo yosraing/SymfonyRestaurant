@@ -1,0 +1,20 @@
+restaurs:
+    pattern:  /
+    defaults: { _controller: RestaurantBundle:Restaurs:restaurs }
+
+presentationRST:
+    pattern:  /restaurs/{id}
+    defaults: { _controller: RestaurantBundle:Restaurs:presentationRST }
+
+categorieRestaurs:
+    pattern:  /categorie/{categorie}
+    defaults: { _controller: RestaurantBundle:Restaurs:categorie }
+
+rechercheRestaurs:
+    pattern:  /recherche
+    defaults: { _controller: RestaurantBundle:Restaurs:rechercheTraitement }
+
+listeProduits:
+    pattern:  /restaur/{restaur}
+    defaults: { _controller: RestaurantBundle:Restaurs:listeProduits }
+

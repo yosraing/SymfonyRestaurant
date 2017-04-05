@@ -1,0 +1,84 @@
+{% extends "::layout/layout.html.twig" %}
+
+{% set totalHT = 0 %}
+{% set totalTTC = 0%}
+{% set refTva = {} %}
+{% for produit in produits %}
+    {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : 0 }) %}
+{% endfor %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            <div class="span3">
+                {% include '::modulesUsed/navigation.html.twig' %}
+            </div>
+
+            <div class="span9">
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                <h2>Valider mon menu</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Références</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Total HT</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if produits|length == 0 %}
+                        <tr>
+                            <td colspan="4"><center>Aucun articles dans votre menu</center></td>
+                        </tr>
+                    {% endif %}
+                    {% for produit in produits %}
+                        <tr>
+                            <form action="{{ path('ajouter', { 'id' : produit.id }) }}" method="get">
+                                <td>{{ produit.nom }}</td>
+                                <td>
+                                    {{  cmd[produit.id] }}
+                                </td>
+                                <td>{{ produit.prix }} Dt</td>
+                                <td>{{ produit.prix * cmd[produit.id] }} Dt</td>
+                            </form>
+                        </tr>
+                        {% set totalHT = totalHT + (produit.prix * cmd[produit.id]) %}
+                        {% set totalTTC = totalTTC + (produit.prix * cmd[produit.id])|tva(produit.tva.multiplicate) %}
+                        {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : refTva['%' ~ produit.tva.valeur] + ( produit.prix * cmd[produit.id])|montantTva(produit.tva.multiplicate) }) %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <dl class="dl-horizontal pull-right">
+                    <dt>Total HT :</dt><dd>{{ totalHT }} Dt</dd>
+
+                    {% for key, tva in refTva %}
+                        <dt>TVA {{ key }} :</dt><dd>{{ tva }} Dt</dd>
+                    {% endfor %}
+
+                    <dt>Total TTC :</dt><dd>{{ totalTTC }} Dt</dd>
+                </dl><br><br>
+                <div class="span3 pull-left">
+                    <dl>
+                        <dt><h4>Réservation de menu</h4></dt>
+                        <dt> Nom et Prénom :  {{ reservationpage.prenom }} - {{ reservationpage.nom }} </dt>
+                        <dt> Téléphone :  {{ reservationpage.tel }} </dt>
+                        <dt> Heure Réservation :  {{ reservationpage.heurereservation|date(' H:i:s') }} </dt>
+                        <dt> Niveau de Réservation :  {{ reservationpage.niveau }} </dt>
+                    </dl>
+                </div>
+
+                <div class="clearfix"></div>
+                <button type="submit" class="btn btn-success pull-right">Réserver</button>
+                <a href="{{ path('reservationpage') }}" class="btn btn-primary">Retour</a><br>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

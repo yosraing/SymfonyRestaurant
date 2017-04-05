@@ -1,0 +1,16 @@
+<div class="well">
+    <ul class="nav nav-list">
+        <li class="nav-header">Menu</li>
+        <li>
+            <a href="{{ path('cmd') }}">
+                {% if articles == 0 %}
+                    Aucun article dans votre menu
+                {% elseif articles == 1 %}
+                    1 article dans votre menu
+                {% else %}
+                    {{ articles }} articles dans votre menu
+                {% endif %}
+            </a>
+        </li>
+    </ul>
+</div>

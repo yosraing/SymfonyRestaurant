@@ -1,0 +1,11 @@
+routingCmd:
+  resource: "@RestaurantBundle/Resources/config/routing/routingCmd.yml"
+  prefix: /
+
+routingProduits:
+  resource: "@RestaurantBundle/Resources/config/routing/routingProduits.yml"
+  prefix: /
+
+routingRestaurs:
+  resource: "@RestaurantBundle/Resources/config/routing/routingRestaurs.yml"
+  prefix: /

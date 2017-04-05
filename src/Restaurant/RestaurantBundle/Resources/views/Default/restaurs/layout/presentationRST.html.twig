@@ -1,0 +1,38 @@
+{% extends "::layout/layout.html.twig" %}
+
+{% block titre %}{{ restaur.nom }}{% endblock %}
+{% block description %}{{ restaur.description }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                {% include '::modulesUsed/navigation.html.twig' %}
+            </div>
+
+            <div class="span9">
+                <div class="row">
+                    <div class="span5">
+                        <img src="{{ restaur.image.path }}" alt="MobiRestau" width="470" height="310">
+                    </div>
+
+                    <div class="span4">
+                        <h3>{{ restaur.nom }}</h3>
+                        <h7><b>Categorie : </b>{{ restaur.categorie.nom }}</h7><br>
+                        <h7><b>Adresse :</b>{{ restaur.adresse }}</h7><br>
+                        <h7><b>E-mail : </b>{{ restaur.mail }}</h7><br>
+                        <h7><b>Téléphone : </b>{{ restaur.tel }}</h7><br>
+                        <h7><b>Position Maps :</b>{{ restaur.positionmaps }}</h7><br>
+                        <p><b>Description : </b>{{ restaur.description }}</p>
+                        <form action="Produits.php">
+                            <div>
+                                <a class="btn btn-primary"  href="{{ path('listeProduits', { 'restaur' : restaur.id }) }}">Liste des Produits</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

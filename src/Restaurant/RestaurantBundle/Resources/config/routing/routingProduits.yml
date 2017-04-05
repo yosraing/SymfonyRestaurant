@@ -1,0 +1,9 @@
+produits:
+    pattern:  /produits
+    defaults: { _controller: RestaurantBundle:Produits:produits }
+
+presentation:
+    pattern:  /produit/{id}
+    defaults: { _controller: RestaurantBundle:Produits:presentation }
+
+
